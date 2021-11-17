@@ -8,7 +8,6 @@ const path = require("path");
 const cors = require("cors");
 dotenv.config();
 
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 const postRoutes = require("./routes/posts");
 const userRoutes = require("./routes/users");
 const commentRoutes = require("./routes/comments");
@@ -26,6 +25,7 @@ db.once("open", () => {
 });
 
 const app = express();
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
