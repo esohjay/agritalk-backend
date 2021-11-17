@@ -5,12 +5,14 @@ const dotenv = require("dotenv");
 const ExpressError = require("./server/utils/ExpressError");
 const MongoStore = require("connect-mongo");
 const path = require("path");
+const cors = require("cors");
 dotenv.config();
 
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
 const postRoutes = require("./server/routes/posts");
 const userRoutes = require("./server/routes/users");
 const commentRoutes = require("./server/routes/comments");
-const dbUrl = "mongodb://localhost:27017/agrotalk";
+const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/agrotalk";
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   // useCreateIndex: true,
@@ -68,14 +70,14 @@ app.use((err, req, res, next) => {
   res.status(statusCode).send(err.message);
 });
 
+/*
 //serve static assets if in production
 if (process.env.NODE_ENV === "production") {
   //Set static folder
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}
+  });*/
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
