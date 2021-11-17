@@ -2,16 +2,16 @@ const express = require("express");
 const session = require("express-session");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const ExpressError = require("./server/utils/ExpressError");
+const ExpressError = require("./utils/ExpressError");
 const MongoStore = require("connect-mongo");
 const path = require("path");
 const cors = require("cors");
 dotenv.config();
 
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
-const postRoutes = require("./server/routes/posts");
-const userRoutes = require("./server/routes/users");
-const commentRoutes = require("./server/routes/comments");
+const postRoutes = require("./routes/posts");
+const userRoutes = require("./routes/users");
+const commentRoutes = require("./routes/comments");
 const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/agrotalk";
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
