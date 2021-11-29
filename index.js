@@ -11,7 +11,7 @@ dotenv.config();
 const postRoutes = require("./routes/posts");
 const userRoutes = require("./routes/users");
 const commentRoutes = require("./routes/comments");
-const dbUrl = process.env.DB_URL || "mongodb://localhost:27017/agrotalk";
+const dbUrl = process.env.DB_URL;
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   // useCreateIndex: true,
@@ -25,10 +25,16 @@ db.once("open", () => {
 });
 
 const app = express();
-app.use(cors({ credentials: true, origin: "https://agritalk.netlify.app" }));
+app.use(
+  cors({
+    credentials: true,
+    origin: ["https://agritalk.netlify.app", "http://localhost:3000"],
+  })
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(express.static(path.join(__dirname, "public")));
 const secret = process.env.SECRET || "coded";
 const store = MongoStore.create({
   mongoUrl: dbUrl,

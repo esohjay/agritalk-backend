@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema(
     },
     bio: String,
     location: String,
-    bookmarkedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }],
+    bookmarkedPosts: [{ id: String, title: String }],
   },
   { timestamps: true }
 );

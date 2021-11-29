@@ -9,18 +9,28 @@ const {
   deleteUser,
   changePassword,
   bookmarkPost,
+  createMessage,
+  changeAdminStatus,
+  removeFromBookmark,
 } = require("../controllers/users.js");
 const { isAdmin, isAuth } = require("../utils/utils.js");
 
 const router = express.Router();
 
 router.post("/", catchAsync(createUser));
+router.post("/contact", catchAsync(createMessage));
 router.post("/signin", catchAsync(signinUser));
-router.get("/", catchAsync(allUsers));
-router.put("/bookmark-posts/:id", isAuth, catchAsync(bookmarkPost));
+router.put("/is-admin/:id", isAuth, isAdmin, catchAsync(changeAdminStatus));
+router.get("/", isAuth, isAdmin, catchAsync(allUsers));
+router.put("/bookmark-posts", isAuth, catchAsync(bookmarkPost));
+router.put(
+  "/bookmark-posts/remove/:id",
+  isAuth,
+  catchAsync(removeFromBookmark)
+);
 router.get("/:id", catchAsync(getUser));
-router.put("/:id", catchAsync(editUser));
-router.put("/password/:id", catchAsync(changePassword));
-router.delete("/:id", isAuth, isAdmin, catchAsync(deleteUser));
+router.put("/:id", isAuth, catchAsync(editUser));
+router.put("/password/:id", isAuth, catchAsync(changePassword));
+router.delete("/:id", isAuth, catchAsync(deleteUser));
 
 module.exports = router;
