@@ -28,7 +28,7 @@ const app = express();
 app.use(
   cors({
     credentials: true,
-    origin: ["https://agritalk.netlify.app", "http://localhost:3000"],
+    origin: "https://agritalk.netlify.app",
   })
 );
 
