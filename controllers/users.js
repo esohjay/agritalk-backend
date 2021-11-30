@@ -65,9 +65,9 @@ module.exports.signinUser = async (req, res) => {
       });
       return;
     }
-    //if no match or password do not match
-    res.status(401).send({ message: "Invalid email/username or password" });
   }
+  //if no match or password do not match
+  res.status(401).send({ message: "Invalid email/username or password" });
 };
 
 module.exports.allUsers = async (req, res) => {

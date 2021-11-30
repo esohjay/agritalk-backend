@@ -31,7 +31,7 @@ app.use(
     origin: "https://agritalk.netlify.app",
   })
 );
-
+//"http://localhost:3000","https://agritalk.netlify.app"
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
